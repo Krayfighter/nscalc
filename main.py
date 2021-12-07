@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 from lib.physics_main import *
 from lib import *
 
@@ -52,8 +54,8 @@ class MainWindow(QtWidgets.QMainWindow):
             self.current_equ.setText('')
             self.prev_out.clear()
             return
-        # elif self.current_equ.text() == '_clear':
-        #     self.prev_out.clear()
+        elif self.current_equ.text() == 'exit':
+            exit(0)
         output = None
         intext = self.current_equ.text()
         intext.replace('^', '**')
