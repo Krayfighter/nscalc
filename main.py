@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 from lib.physics_main import *
-from lib import *
+from lib.lib import *
 
 from sys import argv
 from PyQt5 import QtWidgets, uic
