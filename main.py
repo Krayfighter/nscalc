@@ -40,6 +40,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self.equ.clicked.connect(self.evaluate)
         self.current_equ.returnPressed.connect(self.evaluate)
 
+        # set menu action
+        self.action_Exit.triggered.connect(lambda: exit(0))
+        self.actionLoaded_Scripts.triggered.connect(lambda: LoadedFunctions().exec())
+
         self.show() # show the window
 
     # standard number pad button click handler
@@ -74,8 +78,19 @@ class MainWindow(QtWidgets.QMainWindow):
         else:
             self.prev_out.clear()
 
-def math():
-    pass
+
+class LoadedFunctions(QtWidgets.QDialog):
+    def __init__(self, caller):
+        self.caller = caller
+        super().__init__() # call parent constructor
+        uic.loadUi('loaded_functions.ui', self) # load .ui file, and convert
+        
+        self.listWidget.itemDoubleClicked.connect(lambda: self.get_fname(None))
+
+        self.show()
+    
+    def get_fname(self, fobject):
+        print(fobject.__name__)
 
 
 
@@ -83,4 +98,3 @@ if __name__ == '__main__':
     app = QtWidgets.QApplication(argv) # load the command line arguments
     window = MainWindow() # create window instance of our main window class
     app.exec_() # run the qt app
-    # math() # deprecated call user math function
