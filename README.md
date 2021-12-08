@@ -42,9 +42,16 @@ scripts can handle the process, better support may come later
 
 for windows ### expoerimental
 
+
+step 1, choosing installation method
+
+do you have git installed? if you do, but if you do not
+know the answer to that quaestion, the answer
+is no, and in that case use the following setup
+
 either download and unzip from https://github.com/Krayfighter/nscalc.git
 
-ir if git is installed -> git clone https://github.com/Krayfighter/nscalc.git
+if git is installed -> git clone https://github.com/Krayfighter/nscalc.git
 
 then
 
