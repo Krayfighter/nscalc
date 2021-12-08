@@ -4,6 +4,7 @@ from physics_main import *
 import physics_main
 from lib import *
 import math
+from math import *
 
 from sys import argv
 from PyQt5 import QtWidgets, uic
