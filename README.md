@@ -1,6 +1,10 @@
 # nscalc
 New Scripting Calculator
 
+graphical docs are available under File -> Help
+
+internal docs only currently in the form of code comments
+
 
 # support
 
