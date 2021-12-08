@@ -1,4 +1,4 @@
-from lib.lib import *
+from lib import *
 from math import pi
 
 
