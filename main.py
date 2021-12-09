@@ -3,6 +3,8 @@
 # local module imports
 from physics_main import * # physiics functions
 import physics_main # add said functions to LoadedFunctions
+from geometry import * # add geometric functions
+import geometry # add geometric functions to LoadedFunctions
 from lib import * # large number types, and other oddities
 
 
@@ -77,8 +79,9 @@ class MainWindow(QtWidgets.QMainWindow):
         intext.replace('^', '**')
         try:
             output = str(eval(intext))
-        except:
+        except BaseException as e:
             output = "error"
+            print(e)
         finally:
             self.prev_out.addItem(QtWidgets.QListWidgetItem(output))
 
@@ -89,6 +92,9 @@ class MainWindow(QtWidgets.QMainWindow):
             self.current_equ.setText('')
         else:
             self.prev_out.clear()
+    
+    def closeEvent(self, event):
+        exit(0)
 
 
 class LoadedFunctions(QtWidgets.QDialog):
@@ -116,6 +122,14 @@ class LoadedFunctions(QtWidgets.QDialog):
         ]
         self.add_item(' -- Physics --')
         for i in dir(physics_main):
+            if i not in exclude:
+                try:
+                    i += str(signature(eval(i)))
+                except TypeError:
+                    pass
+                self.add_item(i)
+        self.add_item(' -- Geometry --')
+        for i in dir(geometry):
             if i not in exclude:
                 try:
                     i += str(signature(eval(i)))
