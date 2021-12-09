@@ -1,13 +1,21 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
-from physics_main import *
-import physics_main
-from lib import *
-import math
-from math import *
+# local module imports
+from physics_main import * # physiics functions
+import physics_main # add said functions to LoadedFunctions
+from lib import * # large number types, and other oddities
 
-from sys import argv
-from PyQt5 import QtWidgets, uic
+
+# python standard library imports
+from inspect import signature # for showing function parameters for LoadedFunctions
+
+from math import * # add more scientific functions
+import math # for listing said functions in LoadedFunctions
+
+
+# imports for PyQt5
+from sys import argv # to pass args to PyQt5
+from PyQt5 import QtWidgets, uic, QtWebEngineWidgets # Qt5 functions, and types
 
 
 
@@ -46,6 +54,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # set menu action
         self.action_Exit.triggered.connect(lambda: exit(0))
         self.actionLoaded_Scripts.triggered.connect(lambda: LoadedFunctions().exec())
+        self.action_Help.triggered.connect(lambda: HelpMenu().exec())
 
         self.show() # show the window
 
@@ -108,6 +117,10 @@ class LoadedFunctions(QtWidgets.QDialog):
         self.add_item(' -- Physics --')
         for i in dir(physics_main):
             if i not in exclude:
+                try:
+                    i += str(signature(eval(i)))
+                except TypeError:
+                    pass
                 self.add_item(i)
         self.add_item(' -- Standard Math --')
         for i in dir(math):
@@ -118,6 +131,22 @@ class LoadedFunctions(QtWidgets.QDialog):
     
     def add_item(self, name: str):
         self.listWidget.addItem(QtWidgets.QListWidgetItem(name))
+
+
+class HelpMenu(QtWidgets.QDialog):
+    def __init__(self):
+        super().__init__() # call parent constructor
+        uic.loadUi('help_menu.ui', self) # load .ui file, and convert
+
+        data = ''
+        with open('docs.html', 'r') as file:
+            data = file.read().replace('\n', '')
+
+        self.webView.setHtml(data)
+
+        self.close_help.clicked.connect(self.close)
+
+        self.show()
 
 
 
