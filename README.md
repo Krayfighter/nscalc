@@ -1,5 +1,5 @@
 # nscalc
-New Scripting Calculator version 0.1.2
+New Scripting Calculator version 0.1.3
 
 graphical docs are available under File -> Help
 
