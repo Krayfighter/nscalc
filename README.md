@@ -64,7 +64,9 @@ do NOT close this window, as we will use it in the next step
 
 real step 2, downloading and running the setup script
 
-download from THE FUCKING SITE
+in the powershell window
+
+Invoke-WebRequest -Uri https://gist.githubusercontent.com/Krayfighter/34c61dc6b9355ba0b661ed336b487e4f/raw/c7dfbefbf91edd985d506e419c97790844b59e6d/setup_nscalc.ps1 -Outfile ./setup.ps1
 
 run the script
 
