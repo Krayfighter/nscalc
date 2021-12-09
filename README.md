@@ -1,17 +1,18 @@
 # nscalc
-New Scripting Calculator version 0.1.1
+New Scripting Calculator version 0.1.2
 
 graphical docs are available under File -> Help
 
 internal docs only currently in the form of code comments
 
 
-# support
+# supported platforms
 
 support for linux natively with setup scripts for dependancies
 
+support for windows may need work
 
-possible support for windows is coming
+support for MacOSX is not planned
 
 
 
@@ -27,8 +28,7 @@ for linux, download the source from https://github.com/Krayfighter/nscalc.git
 
 then run
 ```
-cd nscalc # move into the application directory
-cd setup # move into the setup directory
+cd nscalc/setup # move into the application directory
 ./setup.sh # run setup script
 cd ../ # move back into application directory
 ./main.py # should run the calculator
@@ -58,8 +58,21 @@ it will now ask you if you want to change the execution policy,
 and you type "Y" (again without the quotation marks) and press enter
 
 if no error in red text appear that means you were successfully,
-and you can close that window now.
 
+do NOT close this window, as we will use it in the next step
+
+
+real step 2, downloading and running the setup script
+
+in the powershell window
+
+Invoke-WebRequest -Uri https://gist.githubusercontent.com/Krayfighter/34c61dc6b9355ba0b661ed336b487e4f/raw/c7dfbefbf91edd985d506e419c97790844b59e6d/setup_nscalc.ps1 -Outfile ./setup.ps1
+
+run the script
+
+the script will ask you if you want to run scripts
+type "A" and press enter and it will allow you to
+run all of the installation scripts
 
 step 2, choosing download method
 
