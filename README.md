@@ -10,7 +10,7 @@ internal docs only currently in the form of code comments
 
 support for linux natively with setup scripts for dependancies
 
-support for windows may need work
+support for windows *** may need work ***
 
 support for MacOSX is not planned
 
