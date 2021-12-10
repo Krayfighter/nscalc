@@ -55,6 +55,7 @@ then typing "powershell", then right click and choose the option "run as adminis
 and click "allow" when it asks for permissions.
 
 now, copy "set-executionpolicy unrestricted" into the powershell window (do not copy the quotation marks)
+then, press enter to run the command
 
 it will now ask you if you want to change the execution policy,
 and you type "Y" (again without the quotation marks) and press enter
@@ -66,18 +67,23 @@ do NOT close this window, as we will use it in the next step
 
 ### step 2, downloading and running the setup script
 
-in the powershell window run
-
-Invoke-WebRequest -Uri https://gist.githubusercontent.com/Krayfighter/34c61dc6b9355ba0b661ed336b487e4f/raw/c7dfbefbf91edd985d506e419c97790844b59e6d/setup_nscalc.ps1 -Outfile ./setup.ps1
-
+now, copy the following
+```
+Invoke-WebRequest -Uri https://gist.githubusercontent.com/Krayfighter/34c61dc6b9355ba0b661ed336b487e4f/raw/a26f1066063f55b0566dbfd636685af227c8caaa/setup_nscalc.ps1 -Outfile ./setup.ps1
+```
+then paste it into powershell the
+powershell window and press enter
+<!-- 
 then run
 
-./setup.ps1
+./setup.ps1 -->
 
-the script will ask you if you want to run scripts
+this will ask you if you want to run scripts
 when it does, type "A" and press enter
 
-after it has completed, 
+<!-- after it has completed,  -->
+
+now, the installation should be complete
 
 
 
