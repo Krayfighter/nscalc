@@ -59,15 +59,20 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.show() # show the window
     
+    def reset_focus(self):
+        self.current_equ.setFocus()
+    
     def get_item_clicked(self, item):
         if item.text() != 'error':
             self.current_equ.setText(self.current_equ.text()+item.text())
+        self.reset_focus()
     
     def backspace(self):
         try:
             self.current_equ.setText(self.current_equ.text().replace(self.current_equ.text()[-1], '', 1))
         except Exception:
             pass
+        self.reset_focus()
     
     def load_prev_equ(self):
         try:
@@ -77,6 +82,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self.current_equ.setText(self.inputs[self.pindex])
         except IndexError:
             self.pindex += len(self.inputs)
+        self.reset_focus()
     
     def load_next_equ(self):
         try:
@@ -86,12 +92,14 @@ class MainWindow(QtWidgets.QMainWindow):
             self.current_equ.setText(self.inputs[self.pindex])
         except IndexError:
             self.pindex -= 2
+        self.reset_focus()
 
     # standard number pad button click handler
     def button_clicked(self, value):
         if type(value) != type('example'):
             value = str(value)
         self.current_equ.setText(self.current_equ.text()+value)
+        self.reset_focus()
     
     # evaluate function to parse and execute equations as python code
     def evaluate(self):
@@ -115,6 +123,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self.prev_out.addItem(QtWidgets.QListWidgetItem(output))
 
         self.current_equ.setText('')
+        self.reset_focus()
     
     def clear_list(self):
         if self.current_equ.text() != '':
@@ -132,4 +141,5 @@ class MainWindow(QtWidgets.QMainWindow):
 if __name__ == '__main__':
     app = QtWidgets.QApplication(argv) # load the command line arguments
     window = MainWindow() # create window instance of our main window class
+    window.current_equ.setFocus()
     app.exec_() # run the qt app
