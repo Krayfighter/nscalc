@@ -1,5 +1,5 @@
 import gmpy2
-from lib import *
+from scripts.lib import *
 from math import pi, sqrt
 
 
