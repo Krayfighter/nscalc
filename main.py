@@ -55,9 +55,13 @@ class MainWindow(QtWidgets.QMainWindow):
         self.action_Help.triggered.connect(lambda: HelpMenu().exec())
 
         # add list click behavior
-        self.prev_out.itemClicked.connect(lambda item: self.current_equ.setText(self.current_equ.text()+item.text()))
+        self.prev_out.itemClicked.connect(lambda item: self.get_item_clicked(item))
 
         self.show() # show the window
+    
+    def get_item_clicked(self, item):
+        if item.text() != 'error':
+            self.current_equ.setText(self.current_equ.text()+item.text())
     
     def backspace(self):
         try:
