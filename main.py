@@ -1,24 +1,12 @@
 #!/usr/bin/python3
 
-# local module imports
-from physics_main import * # physiics functions
-import physics_main # add said functions to LoadedFunctions
-from geometry import * # add geometric functions
-import geometry # add geometric functions to LoadedFunctions
-from lib import * # large number types, and other oddities
-
-
-# python standard library imports
-from inspect import signature # for showing function parameters for LoadedFunctions
-
-from math import * # add more scientific functions
-import math # for listing said functions in LoadedFunctions
-
 
 # imports for PyQt5
 from sys import argv # to pass args to PyQt5
-from PyQt5 import QtWidgets, uic, QtWebEngineWidgets # Qt5 functions, and types
+from PyQt5 import QtWidgets, uic
 
+from LoadedFunctions import *
+from HelpMenu import HelpMenu
 
 
 # class wrapper for loading .ui file
@@ -27,11 +15,15 @@ class MainWindow(QtWidgets.QMainWindow):
         super(MainWindow, self).__init__() # call parent constructor
         uic.loadUi('main.ui', self) # load .ui file, and convert
 
+        self.inputs = []
+        self.pindex = -1
+
         # Button Behavior
         self.buttons = self.findChildren(QtWidgets.QPushButton)
 
         # set numeric button press values
         # pass value to a lambda function of button_clicked
+        self.zero.clicked.connect(lambda: self.button_clicked(0))
         self.one.clicked.connect(lambda: self.button_clicked(1))
         self.two.clicked.connect(lambda: self.button_clicked(2))
         self.three.clicked.connect(lambda: self.button_clicked(3))
@@ -47,18 +39,49 @@ class MainWindow(QtWidgets.QMainWindow):
         self.min.clicked.connect(lambda: self.button_clicked('-'))
         self.mul.clicked.connect(lambda: self.button_clicked('*'))
         self.div.clicked.connect(lambda: self.button_clicked('/'))
+        self.sqrt.clicked.connect(lambda: self.button_clicked('sqrt('))
 
         # set etc. buttons and other actions
         self.clear.clicked.connect(self.clear_list)
         self.equ.clicked.connect(self.evaluate)
         self.current_equ.returnPressed.connect(self.evaluate)
+        self.back.clicked.connect(self.backspace)
+        self.prev.clicked.connect(self.load_prev_equ)
+        self.next.clicked.connect(self.load_next_equ)
 
         # set menu action
         self.action_Exit.triggered.connect(lambda: exit(0))
         self.actionLoaded_Scripts.triggered.connect(lambda: LoadedFunctions().exec())
         self.action_Help.triggered.connect(lambda: HelpMenu().exec())
 
+        # add list click behavior
+        self.prev_out.itemClicked.connect(lambda item: self.current_equ.setText(self.current_equ.text()+item.text()))
+
         self.show() # show the window
+    
+    def backspace(self):
+        try:
+            self.current_equ.setText(self.current_equ.text().replace(self.current_equ.text()[-1], '', 1))
+        except Exception:
+            pass
+    
+    def load_prev_equ(self):
+        try:
+            self.pindex -= 1
+            if self.pindex < 0:
+                self.pindex = 0
+            self.current_equ.setText(self.inputs[self.pindex])
+        except IndexError:
+            self.pindex += len(self.inputs)
+    
+    def load_next_equ(self):
+        try:
+            self.pindex += 1
+            if self.pindex >= len(self.inputs):
+                self.pindex = len(self.inputs)-1
+            self.current_equ.setText(self.inputs[self.pindex])
+        except IndexError:
+            self.pindex -= 2
 
     # standard number pad button click handler
     def button_clicked(self, value):
@@ -76,7 +99,9 @@ class MainWindow(QtWidgets.QMainWindow):
             exit(0)
         output = None
         intext = self.current_equ.text()
-        intext.replace('^', '**')
+        intext.replace('^', '**', 0)
+        self.inputs.append(intext)
+        self.pindex = len(self.inputs)
         try:
             output = str(eval(intext))
         except BaseException as e:
@@ -92,75 +117,11 @@ class MainWindow(QtWidgets.QMainWindow):
             self.current_equ.setText('')
         else:
             self.prev_out.clear()
+            self.inputs = []
+            self.pindex = -1
     
     def closeEvent(self, event):
         exit(0)
-
-
-class LoadedFunctions(QtWidgets.QDialog):
-    def __init__(self):
-        # self.caller = caller
-        super().__init__() # call parent constructor
-        uic.loadUi('loaded_functions.ui', self) # load .ui file, and convert
-        
-        # self.listWidget.addItem(QtWidgets.QListWidgetItem('tan_velocity'))
-        # self.listWidget.addItem(QtWidgets.QListWidgetItem('centripital_from_velocity'))
-        exclude = [
-            '__builtins__',
-            '__cached__',
-            '__doc__',
-            '__file__',
-            '__loader__',
-            '__name__',
-            '__package__',
-            '__spec__',
-            'gmpy2',
-            'mpfr',
-            'mpnum',
-            'mpq',
-            'mpratio'
-        ]
-        self.add_item(' -- Physics --')
-        for i in dir(physics_main):
-            if i not in exclude:
-                try:
-                    i += str(signature(eval(i)))
-                except TypeError:
-                    pass
-                self.add_item(i)
-        self.add_item(' -- Geometry --')
-        for i in dir(geometry):
-            if i not in exclude:
-                try:
-                    i += str(signature(eval(i)))
-                except TypeError:
-                    pass
-                self.add_item(i)
-        self.add_item(' -- Standard Math --')
-        for i in dir(math):
-            if i not in exclude:
-                self.add_item(i)
-
-        self.show()
-    
-    def add_item(self, name: str):
-        self.listWidget.addItem(QtWidgets.QListWidgetItem(name))
-
-
-class HelpMenu(QtWidgets.QDialog):
-    def __init__(self):
-        super().__init__() # call parent constructor
-        uic.loadUi('help_menu.ui', self) # load .ui file, and convert
-
-        data = ''
-        with open('docs.html', 'r') as file:
-            data = file.read().replace('\n', '')
-
-        self.webView.setHtml(data)
-
-        self.close_help.clicked.connect(self.close)
-
-        self.show()
 
 
 
