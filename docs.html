@@ -1,49 +1,78 @@
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-    </head>
-    <body style="background-color: #aaa">
-        <h3>Welcome to the Help Documentation</h3>
-        <p>
-            This is the user guide for nscalc, the following sections
-            will quide you through the various compponents of the application
-        </p>
-        <p>
-            for a more indepth guide to things like installation and contributing
-            see the README.md from <a href="https://github.com/Krayfighter/nscalc.git/README.md">the github page</a>
-        </p>
-        <ul>
-            <li><a href="#ui">User Interface and Design</a></li>
-        </ul>
-        <h4><a name="ui">The UI</a></h4>
-        <p>
-            One of the goals of nscalc if for a simple,<br />
-            and practicle user inter (UI) one of the few<br />
-            ui elements that may need explaining is the<br />
-            View -> Loaded Functions menu. what it does<br />
-            it it programatically displays the functions,<br />
-            and constants (like pi, and sqaure root).there<br />
-            should be a way to make your own scriptin the<br />
-            future, but curently that is what you get
-        </p>
-        <h5>special buttons</h5>
-        <p>
-            there are several button, particularly at<br />
-            the bottom of the calculator. the buttons<br />
-            are labeled by &#187;, &#171;, and &#8592;
-        </p>
-        <p>
-            &#8592;is used for deleting the right-most<br />
-            character from the current equation.
-        </p>
-        <p>
-            The &#171;, and &#187; are for loading the<br />
-            previous inputs to the calculator. for instance<br />
-            if you were to mistype a command, and it returns<br />
-            and error, you can use the &#171; to bring it back<br />
-            and fix it, or if you go too far back, you<br />
-            can come back forward with &#187;
-        </p>
-    </body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body style="background-color: #aaa">
+		<h3>Welcome to the Help Documentation</h3>
+		<p>
+			This is the user guide for nscalc, the following sections
+			will quide you through the various compponents of the application
+		</p>
+		<p>
+			for a more indepth guide to things like installation and contributing
+			see the README.md from <a href="https://github.com/Krayfighter/nscalc.git/README.md">the github page</a>
+		</p>
+		<ul>
+			<li><a href="#ui">User Interface and Design</a></li>
+			<li><a href="#inputs">Inputs Methods</a></li>
+			<li><a href="#dialogs">Other Dialogs</a></li>
+		</ul>
+		<h4><a name="ui">The UI</a></h4>
+		<p>
+			One of the goals of nscalc if for a simple,<br />
+			and practicle user inter (UI) one of the few<br />
+			ui elements that may need explaining is the<br />
+			View -> Loaded Functions menu. what it does<br />
+			it it programatically displays the functions,<br />
+			and constants (like pi, and sqaure root).there<br />
+			should be a way to make your own scriptin the<br />
+			future, but curently that is what you get
+		</p>
+		<h5>special buttons</h5>
+		<p>
+			there are several button, particularly at<br />
+			the bottom of the calculator. the buttons<br />
+			are labeled by &#187;, &#171;, and &#8592;
+		</p>
+		<p>
+			&#8592;is used for deleting the right-most<br />
+			character from the current equation.
+		</p>
+		<p>
+			The &#171;, and &#187; are for loading the<br />
+			previous inputs to the calculator. for instance<br />
+			if you were to mistype a command, and it returns<br />
+			and error, you can use the &#171; to bring it back<br />
+			and fix it, or if you go too far back, you<br />
+			can come back forward with &#187;
+		</p>
+		<h4><a name="inputs">Input Methods</a></h4>
+		<p>
+			nscalc has two distinct methods for entering<br />
+			equations into the calculator. The first is <br />
+			clicking the buttons in the UI (the graphics)<br />
+			The second method is to type ccharacters using <br />
+			the keyboard. I have worked to make these input<br />
+			methods work seemlessly together
+		</p>
+		<h4><a name="dialogs">Other Dialogs</a></h4>
+		<p>
+			If you have gotten to this point, you probably<br />
+			have found the File -> Help menu. If you did not<br />
+			know already, that opened up this dialog or secondary<br />
+			window. there are others though, and they have some<br />
+			unique functionalities that will be documented in this<br />
+			section of the documentation.
+		</p>
+		<h5>View -> Loaded Functions</h5>
+		<p>
+			This menu option opens up a dialog with only one<br />
+			feature, a list of functions. these functions can<br />
+			be used to perform specific mathematic operations<br />
+			and if you click on them, it will copy the function<br />
+			into your current equation.<br />
+			<b><strong>There is currently a bug that does not allow clicking the loaded functions and copying them into your current equation. IT WILL CRASH if you click them</strong></b>
+		</p>
+	</body>
 </html>
