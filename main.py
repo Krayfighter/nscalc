@@ -1,8 +1,11 @@
 #!/usr/bin/python3
 
 
+from sys import argv
+from os import system
+import os
+
 # imports for PyQt5
-from sys import argv # to pass args to PyQt5
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtCore import Qt
 
@@ -18,9 +21,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.inputs = []
         self.pindex = -1
-
-        # Button Behavior
-        self.buttons = self.findChildren(QtWidgets.QPushButton)
 
         # set numeric button press values
         # pass value to a lambda function of button_clicked
@@ -168,6 +168,16 @@ class MainWindow(QtWidgets.QMainWindow):
 
 
 if __name__ == '__main__':
+    argv = argv[-1:]
+    if argv != []:
+        for arg in argv:
+            if arg == '--update':
+                if os.name == 'posix':
+                    system('bash '+os.getcwd()+'/setup/update.sh')
+                elif os.name == 'nt':
+                    system('echo Not Yet Implemented')
+                else:
+                    raise RuntimeError('Not Implemented')
     app = QtWidgets.QApplication(argv) # load the command line arguments
     window = MainWindow() # create window instance of our main window class
     window.current_equ.setFocus()
