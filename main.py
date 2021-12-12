@@ -174,6 +174,7 @@ if __name__ == '__main__':
             if arg == '--update':
                 if os.name == 'posix':
                     system('bash '+os.getcwd()+'/setup/update.sh')
+                    exit(0)
                 elif os.name == 'nt':
                     system('echo Not Yet Implemented')
                 else:
