@@ -21,8 +21,6 @@ support for MacOSX is not planned
 
 available only from github
 
-command line git is `very` recommended but not technically required
-
 
 ### for linux, download the source
 
