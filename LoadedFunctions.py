@@ -53,15 +53,18 @@ class LoadedFunctions(QtWidgets.QDialog):
         for i in dir(math):
             if i not in exclude:
                 self.add_item(i)
-        
+
         self.listWidget.itemClicked.connect(lambda item: self.get_item_clicked(item))
 
         self.show()
     
     def get_item_clicked(self, item):
-        print(type(self))
-        print(type(self.parent))
-        self.parent.current_equ.setText(self.parent.current_equ.text()+item)
+        print(' -- debug -- -> '+str(type(self)))
+        print(' -- debug -- -> '+str(type(self.parent)))
+        try:
+            self.parent.current_equ.setText(self.parent.current_equ.text()+item)
+        except AttributeError as e:
+            print(' -- debug -- -> ' + str(e))
     
     def add_item(self, name: str):
         self.listWidget.addItem(QtWidgets.QListWidgetItem(name))
