@@ -7,7 +7,9 @@
 gmpy2==2.1.0rc2
     # via -r requirements.txt
 pyqt5==5.15.6
-    # via -r requirements.txt
+    # via
+    #   -r requirements.txt
+    #   pyqtwebengine
 pyqt5-qt5==5.15.2
     # via
     #   -r requirements.txt
@@ -16,4 +18,8 @@ pyqt5-sip==12.9.0
     # via
     #   -r requirements.txt
     #   pyqt5
-PyQtWebEngine
+    #   pyqtwebengine
+pyqtwebengine==5.15.5
+    # via -r requirements.txt
+pyqtwebengine-qt5==5.15.2
+    # via pyqtwebengine
