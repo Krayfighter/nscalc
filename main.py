@@ -4,6 +4,7 @@
 # imports for PyQt5
 from sys import argv # to pass args to PyQt5
 from PyQt5 import QtWidgets, uic
+from PyQt5.QtCore import Qt
 
 from LoadedFunctions import *
 from HelpMenu import HelpMenu
@@ -34,12 +35,31 @@ class MainWindow(QtWidgets.QMainWindow):
         self.eight.clicked.connect(lambda: self.button_clicked(8))
         self.nine.clicked.connect(lambda: self.button_clicked(9))
 
+        # set numeric focus policies
+        self.zero.setFocusPolicy(Qt.NoFocus)
+        self.one.setFocusPolicy(Qt.NoFocus)
+        self.two.setFocusPolicy(Qt.NoFocus)
+        self.three.setFocusPolicy(Qt.NoFocus)
+        self.four.setFocusPolicy(Qt.NoFocus)
+        self.five.setFocusPolicy(Qt.NoFocus)
+        self.six.setFocusPolicy(Qt.NoFocus)
+        self.seven.setFocusPolicy(Qt.NoFocus)
+        self.eight.setFocusPolicy(Qt.NoFocus)
+        self.nine.setFocusPolicy(Qt.NoFocus)
+
         # set operation buttons
         self.add.clicked.connect(lambda: self.button_clicked('+'))
         self.min.clicked.connect(lambda: self.button_clicked('-'))
         self.mul.clicked.connect(lambda: self.button_clicked('*'))
         self.div.clicked.connect(lambda: self.button_clicked('/'))
         self.sqrt.clicked.connect(lambda: self.button_clicked('sqrt('))
+
+        # set operation focus policies
+        self.add.setFocusPolicy(Qt.NoFocus)
+        self.min.setFocusPolicy(Qt.NoFocus)
+        self.mul.setFocusPolicy(Qt.NoFocus)
+        self.div.setFocusPolicy(Qt.NoFocus)
+        self.sqrt.setFocusPolicy(Qt.NoFocus)
 
         # set etc. buttons and other actions
         self.clear.clicked.connect(self.clear_list)
@@ -49,15 +69,23 @@ class MainWindow(QtWidgets.QMainWindow):
         self.prev.clicked.connect(self.load_prev_equ)
         self.next.clicked.connect(self.load_next_equ)
 
+        # set misc. focus policies
+        self.clear.setFocusPolicy(Qt.NoFocus)
+        self.equ.setFocusPolicy(Qt.NoFocus)
+        self.back.setFocusPolicy(Qt.NoFocus)
+        self.prev.setFocusPolicy(Qt.NoFocus)
+        self.next.setFocusPolicy(Qt.NoFocus)
+
         # set menu action
         self.action_Exit.triggered.connect(lambda: exit(0))
-        self.actionLoaded_Scripts.triggered.connect(lambda: LoadedFunctions().exec())
+        self.actionLoaded_Scripts.triggered.connect(lambda: LoadedFunctions(self).exec())
         self.action_Help.triggered.connect(lambda: HelpMenu().exec())
 
         # add list click behavior
         self.prev_out.itemClicked.connect(lambda item: self.get_item_clicked(item))
 
         self.show() # show the window
+
     
     def reset_focus(self):
         self.current_equ.setFocus()
@@ -132,6 +160,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self.prev_out.clear()
             self.inputs = []
             self.pindex = -1
+        self.reset_focus()
     
     def closeEvent(self, event):
         exit(0)
