@@ -12,9 +12,8 @@ from PyQt5 import QtWidgets, uic
 
 
 class LoadedFunctions(QtWidgets.QDialog):
-    def __init__(self):
-        # self.caller = caller
-        super().__init__() # call parent constructor
+    def __init__(self, parent):
+        super().__init__(parent) # call parent constructor
         uic.loadUi('loaded_functions.ui', self) # load .ui file, and convert
         
         # self.listWidget.addItem(QtWidgets.QListWidgetItem('tan_velocity'))
@@ -54,8 +53,15 @@ class LoadedFunctions(QtWidgets.QDialog):
         for i in dir(math):
             if i not in exclude:
                 self.add_item(i)
+        
+        self.listWidget.itemClicked.connect(lambda item: self.get_item_clicked(item))
 
         self.show()
+    
+    def get_item_clicked(self, item):
+        print(type(self))
+        print(type(self.parent))
+        self.parent.current_equ.setText(self.parent.current_equ.text()+item)
     
     def add_item(self, name: str):
         self.listWidget.addItem(QtWidgets.QListWidgetItem(name))
