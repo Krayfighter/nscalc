@@ -192,6 +192,7 @@
     </property>
     <addaction name="action_Help"/>
     <addaction name="action_Exit"/>
+    <addaction name="action_Update"/>
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
@@ -221,6 +222,11 @@
   <action name="actionLoaded_Scripts">
    <property name="text">
     <string>Loaded Scripts</string>
+   </property>
+  </action>
+  <action name="action_Update">
+   <property name="text">
+    <string>&amp;Update</string>
    </property>
   </action>
  </widget>
