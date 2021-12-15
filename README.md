@@ -22,20 +22,37 @@ support for MacOSX is not planned
 available only from github
 
 
-### for linux, download the source
+### for linux distrobutions
 
 git clone https://github.com/Krayfighter/nscalc.git
 
-then run
+
+### arch linux
+
+for setup run
+```
+cd nscalc/setup
+./archlinux.sh
+./setup.sh
+cd ../
+```
+
+then
+```
+./main.py
+```
+to run the application
+
+
+### deprecated (requires python and pip beforehand)
+
+run
 ```
 cd nscalc/setup # move into the application directory
 ./setup.sh # run setup script
 cd ../ # move back into application directory
 ./main.py # should run the calculator
 ```
-
-currently python3, and pip are required before the installation
-scripts can handle the process, better support may come later
 
 
 
