@@ -12,6 +12,7 @@
 
 # does not work yet
 
+
 pip install --upgrade pip
 pip install pip-tools
 
@@ -20,5 +21,3 @@ pip-compile requirements.txt
 pip install -r requirements.txt
 
 chmod +x ../main.py
-chmod +x ./update.sh
-chmod +x ./setup.sh
