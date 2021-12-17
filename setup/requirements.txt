@@ -51,3 +51,4 @@ typing-extensions==4.0.1
     # via
     #   -r requirements.txt
     #   black
+sympy==1.9
