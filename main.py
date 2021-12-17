@@ -2,15 +2,16 @@
 
 
 from sys import argv
-from os import system
+from os import getcwd, system
 import os
+
+from webbrowser import open_new
 
 # imports for PyQt5
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtCore import Qt
 
 from LoadedFunctions import *
-from HelpMenu import HelpMenu
 
 
 # class wrapper for loading .ui file
@@ -79,7 +80,8 @@ class MainWindow(QtWidgets.QMainWindow):
         # set menu action
         self.action_Exit.triggered.connect(lambda: exit(0))
         self.actionLoaded_Scripts.triggered.connect(lambda: LoadedFunctions(self).exec())
-        self.action_Help.triggered.connect(lambda: HelpMenu().exec())
+        # self.action_Help.triggered.connect(lambda: HelpMenu().exec())
+        self.action_Help.triggered.connect(lambda: open_new('file://'+getcwd()+'/doc/docs.html'))
 
         # add list click behavior
         self.prev_out.itemClicked.connect(lambda item: self.get_item_clicked(item))
