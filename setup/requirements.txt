@@ -15,4 +15,6 @@ pyqt5-sip==12.9.0
     # via
     #   -r requirements.txt
     #   pyqt5
+mpmath==1.2.1
+    # via sympy
 sympy==1.9
