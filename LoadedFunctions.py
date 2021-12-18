@@ -1,71 +1,65 @@
-from scripts import *
+from extensions import *
 
-import scripts.physics_main as physics_main # add physics to LoadedFunctions
-import scripts.geometry as geometry # add geometry to LoadedFunctions
-
-from math import * # add more scientific functions
-import math # for listing said functions in LoadedFunctions
+from sympy import *
+import sympy
 
 from inspect import signature # for showing function parameters for LoadedFunctions
 
 from PyQt5 import QtWidgets, uic
 
+from os import getcwd, listdir
 
+
+# class wrapper for loaded_functions.ui
+# shows all currently loaded extensions and parameters if available
 class LoadedFunctions(QtWidgets.QDialog):
-    def __init__(self, parent):
-        super().__init__(parent) # call parent constructor
-        uic.loadUi('loaded_functions.ui', self) # load .ui file, and convert
-        
-        # self.listWidget.addItem(QtWidgets.QListWidgetItem('tan_velocity'))
-        # self.listWidget.addItem(QtWidgets.QListWidgetItem('centripital_from_velocity'))
-        exclude = [
-            '__builtins__',
-            '__cached__',
-            '__doc__',
-            '__file__',
-            '__loader__',
-            '__name__',
-            '__package__',
-            '__spec__',
-            'gmpy2',
-            'mpfr',
-            'mpnum',
-            'mpq',
-            'mpratio'
-        ]
-        self.add_item(' -- Physics --')
-        for i in dir(physics_main):
-            if i not in exclude:
-                try:
-                    i += str(signature(eval(i)))
-                except TypeError:
-                    pass
-                self.add_item(i)
-        self.add_item(' -- Geometry --')
-        for i in dir(geometry):
-            if i not in exclude:
-                try:
-                    i += str(signature(eval(i)))
-                except TypeError:
-                    pass
-                self.add_item(i)
-        self.add_item(' -- Standard Math --')
-        for i in dir(math):
-            if i not in exclude:
-                self.add_item(i)
+	def __init__(self, caller):
+		super().__init__() # call parent constructor
+		self.caller = caller # main window object
+		uic.loadUi('loaded_functions.ui', self) # load .ui file, and convert
+		
+		# excluded objects from being displayed
+		self.exclude = ['__builtins__', '__cached__', '__doc__',
+			'__file__', '__loader__', '__name__', '__package__',
+			'__spec__', 'gmpy2', 'mpfr', 'mpnum', 'mpq', 'mpratio',
+			'__path__'
+		]
 
-        self.listWidget.itemClicked.connect(lambda item: self.get_item_clicked(item))
+		# iterate through available extensions and call add_group on them
+		for item in listdir(getcwd()+'/extensions'):
+			if item.endswith('.py') and item != '__init__.py':
+				self.add_group(item, eval(item[:-3]), excludes=dir(sympy))
 
-        self.show()
-    
-    def get_item_clicked(self, item):
-        print(' -- debug -- -> '+str(type(self)))
-        print(' -- debug -- -> '+str(type(self.parent)))
-        try:
-            self.parent.current_equ.setText(self.parent.current_equ.text()+item)
-        except AttributeError as e:
-            print(' -- debug -- -> ' + str(e))
-    
-    def add_item(self, name: str):
-        self.listWidget.addItem(QtWidgets.QListWidgetItem(name))
+
+		self.add_group('Advanced Math', sympy)
+
+		self.listWidget.itemClicked.connect(lambda item: self.load_clicked_function(item))
+
+		self.show()
+	
+	# add an extension and it's functions to self.listWidget using add_item
+	def add_group(self, groupname, module, excludes=[]):
+		self.add_item(' ------ ' + groupname + ' ------')
+		for i in dir(module):
+			if i not in self.exclude and i not in excludes:
+				try:
+					i += str(signature(eval(i)))
+				except Exception:
+					pass
+				self.add_item(i)
+	
+	# used for list item click event
+	# takes an item and adds it to calculator's current equation in main window
+	def load_clicked_function(self, item):
+		try:
+			if self.caller.current_equ.text() == '' or not self.caller.current_equ.text().endswith(' '):
+				self.caller.current_equ.setText(self.caller.current_equ.text()+' '+item.text())
+			else:
+				self.caller.current_equ.setText(self.caller.current_equ.text()+item.text())
+		except AttributeError as e:
+			print(' -- debug -- -> ' + str(e))
+	
+	# add an item to self.listWidget
+	def add_item(self, name: str):
+		self.listWidget.addItem(QtWidgets.QListWidgetItem(name))
 
