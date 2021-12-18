@@ -2,6 +2,10 @@ from scripts import *
 
 import scripts.physics_main as physics_main # add physics to LoadedFunctions
 
+
+from extensions import *
+# import extensions
+
 ### deprecated for sympy geometry
 # import scripts.geometry as geometry # add geometry to LoadedFunctions
 
@@ -16,6 +20,8 @@ from inspect import signature # for showing function parameters for LoadedFuncti
 
 from PyQt5 import QtWidgets, uic
 
+from os import getcwd, listdir
+
 
 class LoadedFunctions(QtWidgets.QDialog):
 	def __init__(self, parent):
@@ -24,8 +30,15 @@ class LoadedFunctions(QtWidgets.QDialog):
 		
 		self.exclude = ['__builtins__', '__cached__', '__doc__',
 			'__file__', '__loader__', '__name__', '__package__',
-			'__spec__', 'gmpy2', 'mpfr', 'mpnum', 'mpq', 'mpratio'
+			'__spec__', 'gmpy2', 'mpfr', 'mpnum', 'mpq', 'mpratio',
+			'__path__'
 		]
+
+		exts = []
+		for item in listdir(getcwd()+'/extensions'):
+			if item.endswith('.py') and item != '__init__.py':
+				self.add_group(item, eval(item[:-3]), excludes=dir(sympy))
+
 
 		self.add_group('Physics', physics_main)
 		self.add_group('Advanced Math', sympy)
@@ -34,10 +47,10 @@ class LoadedFunctions(QtWidgets.QDialog):
 
 		self.show()
 	
-	def add_group(self, groupname, module):
+	def add_group(self, groupname, module, excludes=[]):
 		self.add_item(' ------ ' + groupname + ' ------')
 		for i in dir(module):
-			if i not in self.exclude:
+			if i not in self.exclude and i not in excludes:
 				try:
 					i += str(signature(eval(i)))
 				except Exception:
