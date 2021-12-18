@@ -2,10 +2,11 @@ from PyQt5 import QtWidgets, uic
 from PyQt5.QtCore import QThread, QSize
 from PyQt5.QtGui import QMovie
 
-from time import sleep
 from os import system
 
 
+# wrapper class for update.ui
+# displays a constant Attempting Updates, and a loading GIF
 class UpdateWindow(QtWidgets.QDialog):
 	def __init__(self):
 		super().__init__() # call parent constructor
@@ -20,18 +21,11 @@ class UpdateWindow(QtWidgets.QDialog):
 
 		self.show()
 
-		self.start_ani()
-		self.start_update()
-	
-	def start_update(self):
-		self.uthread.start()
-	
-	def start_ani(self):
 		self.loading.start()
-	
-	def stop_ani(self):
-		self.loading.stop()
+		self.uthread.start()
 
+
+# class for updating calculator in seperate thread
 class UpdaterThread(QThread):
 	def __init__(self, parent):
 		QThread.__init__(self)

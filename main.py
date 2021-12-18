@@ -90,7 +90,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
 		self.show() # show the window
 
-	
+	# set the focus back to the current equation for more seemless usage between buttons and typing
 	def reset_focus(self):
 		self.current_equ.setFocus()
 	
@@ -99,6 +99,7 @@ class MainWindow(QtWidgets.QMainWindow):
 			self.current_equ.setText(self.current_equ.text()+item.text())
 		self.reset_focus()
 	
+	# remove list item -1
 	def backspace(self):
 		try:
 			self.current_equ.setText(self.current_equ.text().replace(self.current_equ.text()[-1], '', 1))
@@ -106,6 +107,7 @@ class MainWindow(QtWidgets.QMainWindow):
 			pass
 		self.reset_focus()
 	
+	# copy the previous equation into current equation by decrementing pindex
 	def load_prev_equ(self):
 		try:
 			self.pindex -= 1
@@ -116,6 +118,7 @@ class MainWindow(QtWidgets.QMainWindow):
 			self.pindex += len(self.inputs)
 		self.reset_focus()
 	
+	# copy the next most recent equation by incrementing pindex
 	def load_next_equ(self):
 		try:
 			self.pindex += 1
@@ -165,6 +168,7 @@ class MainWindow(QtWidgets.QMainWindow):
 		self.current_equ.setText('')
 		self.reset_focus()
 	
+	# clear the list items
 	def clear_list(self):
 		if self.current_equ.text() != '':
 			self.current_equ.setText('')
@@ -174,23 +178,13 @@ class MainWindow(QtWidgets.QMainWindow):
 			self.pindex = -1
 		self.reset_focus()
 	
+	# custom close event to close mainwindow and all dialogs
 	def closeEvent(self, event):
 		exit(0)
 
 
 
 if __name__ == '__main__':
-	argv = argv[-1:]
-	if argv != []:
-		for arg in argv:
-			if arg == '--update':
-				if os.name == 'posix':
-					system('bash '+os.getcwd()+'/setup/update.sh')
-					exit(0)
-				elif os.name == 'nt':
-					system('echo Not Yet Implemented')
-				else:
-					raise RuntimeError('Not Implemented')
 	app = QtWidgets.QApplication(argv) # load the command line arguments
 	window = MainWindow() # create window instance of our main window class
 	window.current_equ.setFocus()
