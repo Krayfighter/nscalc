@@ -1,17 +1,6 @@
-from scripts import *
-
-import scripts.physics_main as physics_main # add physics to LoadedFunctions
-
+# script for displaying currently loaded extensions and other math functions
 
 from extensions import *
-# import extensions
-
-### deprecated for sympy geometry
-# import scripts.geometry as geometry # add geometry to LoadedFunctions
-
-### deprecated, sympy is used for advanced math now
-# from math import * # add more scientific functions
-# import math # for listing said functions in LoadedFunctions
 
 from sympy import *
 import sympy
@@ -34,13 +23,11 @@ class LoadedFunctions(QtWidgets.QDialog):
 			'__path__'
 		]
 
-		exts = []
 		for item in listdir(getcwd()+'/extensions'):
 			if item.endswith('.py') and item != '__init__.py':
 				self.add_group(item, eval(item[:-3]), excludes=dir(sympy))
 
 
-		self.add_group('Physics', physics_main)
 		self.add_group('Advanced Math', sympy)
 
 		self.listWidget.itemClicked.connect(lambda item: self.get_item_clicked(item))
