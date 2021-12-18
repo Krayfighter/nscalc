@@ -11,4 +11,4 @@ for item in listdir(getcwd()+'/extensions'):
             to_import = module.__all__
         except AttributeError:
             to_import = [name for name in module if not name.startswith('_')]
-        globals().update({name: module[name] for name in to_import})\
+        globals().update({name: module[name] for name in to_import})
