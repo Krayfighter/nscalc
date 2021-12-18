@@ -13,8 +13,9 @@ from os import getcwd, listdir
 
 
 class LoadedFunctions(QtWidgets.QDialog):
-	def __init__(self, parent):
-		super().__init__(parent) # call parent constructor
+	def __init__(self, caller):
+		super().__init__() # call parent constructor
+		self.caller = caller
 		uic.loadUi('loaded_functions.ui', self) # load .ui file, and convert
 		
 		self.exclude = ['__builtins__', '__cached__', '__doc__',
@@ -30,7 +31,7 @@ class LoadedFunctions(QtWidgets.QDialog):
 
 		self.add_group('Advanced Math', sympy)
 
-		self.listWidget.itemClicked.connect(lambda item: self.get_item_clicked(item))
+		self.listWidget.itemClicked.connect(lambda item: self.load_clicked_function(item))
 
 		self.show()
 	
@@ -44,11 +45,12 @@ class LoadedFunctions(QtWidgets.QDialog):
 					pass
 				self.add_item(i)
 	
-	def get_item_clicked(self, item):
-		print(' -- debug -- -> '+str(type(self)))
-		print(' -- debug -- -> '+str(type(self.parent)))
+	def load_clicked_function(self, item):
 		try:
-			self.parent.current_equ.setText(self.parent.current_equ.text()+item)
+			if self.caller.current_equ.text() == '' or not self.caller.current_equ.text().endswith(' '):
+				self.caller.current_equ.setText(self.caller.current_equ.text()+' '+item.text())
+			else:
+				self.caller.current_equ.setText(self.caller.current_equ.text()+item.text())
 		except AttributeError as e:
 			print(' -- debug -- -> ' + str(e))
 	
