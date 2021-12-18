@@ -11,6 +11,7 @@ from PyQt5 import QtWidgets, uic
 from PyQt5.QtCore import Qt
 
 from LoadedFunctions import *
+from update import UpdateWindow
 
 import sympy
 
@@ -81,8 +82,8 @@ class MainWindow(QtWidgets.QMainWindow):
 		# set menu action
 		self.action_Exit.triggered.connect(lambda: exit(0))
 		self.actionLoaded_Scripts.triggered.connect(lambda: LoadedFunctions(self).exec())
-		# self.action_Help.triggered.connect(lambda: HelpMenu().exec())
 		self.action_Help.triggered.connect(lambda: open_new('file://'+getcwd()+'/doc/docs.html'))
+		self.action_Update.triggered.connect(lambda: UpdateWindow().exec())
 
 		# add list click behavior
 		self.prev_out.itemClicked.connect(lambda item: self.get_item_clicked(item))
