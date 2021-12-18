@@ -25,14 +25,16 @@ available only from github
 
 ### for linux distrobutions
 
+```
 git clone https://github.com/Krayfighter/nscalc.git
-
+cd nscalc
+```
 
 ### arch linux
 
 for setup run
 ```
-cd nscalc/setup
+cd setup
 ./archlinux.sh
 ./setup.sh
 cd ../
@@ -43,6 +45,21 @@ then
 ./main.py
 ```
 to run the application
+
+
+### debian-based (ubuntu, popos, mint, etc.)
+
+```
+#if you do not have python or pip installed
+sudo apt install python3 python3-pip 
+
+cd setup
+./setup.sh
+cd ../
+```
+
+then, to run the app, do
+```./main.py```
 
 
 ### deprecated (requires python and pip beforehand)
