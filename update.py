@@ -2,7 +2,7 @@ from PyQt5 import QtWidgets, uic
 from PyQt5.QtCore import QThread, QSize
 from PyQt5.QtGui import QMovie
 
-from os import system
+from os import system, name
 
 
 # wrapper class for update.ui
@@ -35,5 +35,8 @@ class UpdaterThread(QThread):
 		self.wait()
 	
 	def run(self):
-		system('setup/update.sh')
+		if name == 'posix':
+			system('setup/update.sh')
+		else:
+			system('setup/update.ps1')
 		self.parent.close()
