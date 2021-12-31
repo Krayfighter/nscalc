@@ -16,7 +16,7 @@ class LoadedFunctions(QtWidgets.QDialog):
 	def __init__(self, caller):
 		super().__init__() # call parent constructor
 		self.caller = caller # main window object
-		uic.loadUi('loaded_functions.ui', self) # load .ui file, and convert
+		uic.loadUi('assets/loaded_functions.ui', self) # load .ui file, and convert
 		
 		# excluded objects from being displayed
 		self.exclude = ['__builtins__', '__cached__', '__doc__',
