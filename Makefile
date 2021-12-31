@@ -1,3 +1,4 @@
+
 arch:
 	sudo pacman -S python3
 	sudo pacman -S --overwrite="*" python-pip python-setuptools python-pyqt5

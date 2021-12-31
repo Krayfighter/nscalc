@@ -1,7 +1,47 @@
-from sympy import pi, sqrt
+from sympy import pi, sqrt, Symbol, symbols, sympify, Eq
+from sympy.solvers import solve
 
-def main(not_yet_implemented=True):
+# class TanVelocity():
+#     def __init__(self, radius=None, time=None, velocity=None):
+#         self.r, self.t, self.v = symbols('r, t, v')
+
+#         self.tanvelocity = {
+#             "find_velocity": sympify("(2*pi*self.r)/self.t")
+#         }
+
+#         if radius != None:
+#             return solve(self.tanvelocity["find_velocity"])
+#         if time != None:
+#             print("not yet implemented")
+#         if velocity != None:
+#             print('not yet implemented')
+        
+#     def __str__(self):
+#         return solve(self.equ)
+
+# expressions = {}
+
+# very bad, will be removed
+def tangential_velocity(radius=None, time=None, velocity=None):
+    r, t, v = symbols('r t v')
+    # tanq = Eq(((v)-(2*pi*r/t)), 0)
+    # print(tanq)
+    # print(solve(tanq))
+    # print(tanq.subs(r, 12293).subs(t, 9.9259*60**2))
+    # print(solve(tanq.subs(r, 12293).subs(t, 9.9259*60**2)))
+
+
+    if velocity == None:
+        return str(sympify("(2*pi*"+str(radius)+")/"+str(time)).evalf())
+    if time == None:
+        return str(sympify("2*pi/"+str(time)+"*"+str(velocity)).evalf())
+    if radius == None:
+        return str(sympify("2*pi/"+str(velocity)+"*"+str(time)).evalf())
+
+
+def centripital_acceleration():
     pass
+    
 
 
 ### old physics functions using gmpy2
