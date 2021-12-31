@@ -10,10 +10,10 @@ from os import system, name
 class UpdateWindow(QtWidgets.QDialog):
 	def __init__(self):
 		super().__init__() # call parent constructor
-		uic.loadUi('update.ui', self) # load .ui file, and convert
+		uic.loadUi('assets/update.ui', self) # load .ui file, and convert
 
 		self.uthread = UpdaterThread(self)
-		self.loading = QMovie("loading.gif")
+		self.loading = QMovie("assets/loading.gif")
 
 		self.mlabel.setMaximumSize(QSize(64, 64))
 		self.mlabel.setMinimumSize(QSize(64, 64))

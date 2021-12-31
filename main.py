@@ -20,7 +20,7 @@ import sympy
 class MainWindow(QtWidgets.QMainWindow):
 	def __init__(self):
 		super(MainWindow, self).__init__() # call parent constructor
-		uic.loadUi('main.ui', self) # load .ui file, and convert
+		uic.loadUi('assets/main.ui', self) # load .ui file, and convert
 
 		self.inputs = []
 		self.pindex = -1
